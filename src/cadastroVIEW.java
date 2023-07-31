@@ -1,6 +1,9 @@
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -160,13 +163,14 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
 
-        conectaDAO dao = new conectaDAO();
-        dao = new conectaDAO();
-
+       /* conectaDAO dao = new conectaDAO();
+        dao = new conectaDAO();*/
+       
+        Connection conn;   
         int resposta;
 
-        Connection statusConect = dao.connectDB();
-        if (statusConect != null) {
+         conn = new conectaDAO().connectDB();
+        if (conn != null) {
             JOptionPane.showMessageDialog(null, "Erro de conexão");
         } else {
             resposta = produtodao.cadastrarProduto(produto);
@@ -184,7 +188,11 @@ public class cadastroVIEW extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao tentar inserir dados");
 
-                dao.desconectar();
+                try {
+                    conn.close();
+                } catch (SQLException ex) {
+                    
+                }
 
             }
         }
