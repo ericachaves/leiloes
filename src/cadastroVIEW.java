@@ -163,13 +163,12 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
 
-       /* conectaDAO dao = new conectaDAO();
+        /* conectaDAO dao = new conectaDAO();
         dao = new conectaDAO();*/
-       
-        Connection conn;   
+        Connection conn;
         int resposta;
 
-         conn = new conectaDAO().connectDB();
+        conn = new conectaDAO().connectDB();
         if (conn != null) {
             JOptionPane.showMessageDialog(null, "Erro de conexão");
         } else {
@@ -191,7 +190,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
                 try {
                     conn.close();
                 } catch (SQLException ex) {
-                    
+
                 }
 
             }
