@@ -61,7 +61,7 @@ public class ProdutosDAO {
         }
 
     }
-    
+
     public ArrayList<ProdutosDTO> listarProdutosVendidos() {
 
         try {
@@ -86,5 +86,20 @@ public class ProdutosDAO {
         }
 
     }
-    
+
+    public int venderProduto(ProdutosDTO produto) {
+        conn = new conectaDAO().connectDB();
+        int status;
+        try {
+            prep = conn.prepareStatement("INSERT INTO produtos (id) VALUES(?)");
+            prep.setInt(1, produto.getId());
+            status = prep.executeUpdate();
+            return status;
+        } catch (SQLException ex) {
+            System.out.println("Erro ao conectar: " + ex.getMessage());
+            return ex.getErrorCode();
+        }
+
+    }
+
 }
