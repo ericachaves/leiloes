@@ -87,11 +87,11 @@ public class ProdutosDAO {
 
     }
 
-    public int venderProduto(ProdutosDTO produto) {
+    public int venderProduto (ProdutosDTO produto) {
         conn = new conectaDAO().connectDB();
         int status;
         try {
-            prep = conn.prepareStatement("INSERT INTO produtos (id) VALUES(?)");
+            prep = conn.prepareStatement("select * from produtos WHERE id = ? ");
             prep.setInt(1, produto.getId());
             status = prep.executeUpdate();
             return status;
@@ -99,6 +99,8 @@ public class ProdutosDAO {
             System.out.println("Erro ao conectar: " + ex.getMessage());
             return ex.getErrorCode();
         }
+        
+        
 
     }
 
