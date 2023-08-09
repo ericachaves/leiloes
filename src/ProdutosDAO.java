@@ -20,19 +20,17 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
 
-    public int cadastrarProduto(ProdutosDTO produto) {
-        conn = new conectaDAO().connectDB();
-        int status;
+    public void cadastrarProduto(ProdutosDTO produto) {
         try {
+            conn = new conectaDAO().connectDB();
             prep = conn.prepareStatement("INSERT INTO produtos (nome, valor, status) VALUES(?,?,?)");
             prep.setString(1, produto.getNome());
             prep.setInt(2, produto.getValor());
             prep.setString(3, produto.getStatus());
-            status = prep.executeUpdate();
-            return status;
+            prep.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao conectar: " + ex.getMessage());
-            return ex.getErrorCode();
+
         }
 
     }
@@ -41,7 +39,7 @@ public class ProdutosDAO {
 
         try {
             conn = new conectaDAO().connectDB();
-            prep = conn.prepareStatement("select * from produtos");
+            prep = conn.prepareStatement("SELECT * FROM produtos");
 
             resultset = prep.executeQuery();
 
@@ -66,7 +64,7 @@ public class ProdutosDAO {
 
         try {
             conn = new conectaDAO().connectDB();
-            prep = conn.prepareStatement("select * from produtos WHERE status = 'Vendido'");
+            prep = conn.prepareStatement("SELECT * FROM produtos WHERE status = 'Vendido'");
 
             resultset = prep.executeQuery();
 
@@ -87,20 +85,18 @@ public class ProdutosDAO {
 
     }
 
-    public int venderProduto (ProdutosDTO produto) {
-        conn = new conectaDAO().connectDB();
-        int status;
+    public void venderProduto(ProdutosDTO produto) {
+        //Atualizar o status do produto para vendido//
         try {
-            prep = conn.prepareStatement("select * from produtos WHERE id = ? ");
-            prep.setInt(1, produto.getId());
-            status = prep.executeUpdate();
-            return status;
+            conn = new conectaDAO().connectDB();
+            prep = conn.prepareStatement("UPDATE produtos SET status = ? WHERE id = ? ");
+            prep.setString(1, "Vendido");
+            prep.setInt(2, produto.getId());
+            prep.execute();
         } catch (SQLException ex) {
             System.out.println("Erro ao conectar: " + ex.getMessage());
-            return ex.getErrorCode();
+
         }
-        
-        
 
     }
 
