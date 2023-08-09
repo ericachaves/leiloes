@@ -1,12 +1,5 @@
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableRowSorter;
 
 
 /*
@@ -163,39 +156,12 @@ public class cadastroVIEW extends javax.swing.JFrame {
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
 
-        /* conectaDAO dao = new conectaDAO();
-        dao = new conectaDAO();*/
-        Connection conn;
-        int resposta;
-
-        conn = new conectaDAO().connectDB();
-        if (conn != null) {
-            JOptionPane.showMessageDialog(null, "Erro de conexão");
-        } else {
-            resposta = produtodao.cadastrarProduto(produto);
-            if (resposta == 1) {
-                JOptionPane.showMessageDialog(null, "Dados incluídos com sucesso");
-                cadastroNome.setText("");
-                cadastroValor.setText("");
-
-                cadastroNome.requestFocus();
-
-            } else if (resposta == 1062) {
-
-                JOptionPane.showMessageDialog(null, "Produto já foi cadastrado");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro ao tentar inserir dados");
-
-                try {
-                    conn.close();
-                } catch (SQLException ex) {
-
-                }
-
-            }
-        }
-
+       JOptionPane.showMessageDialog(null, "Dados incluídos com sucesso");
+       cadastroNome.setText("");
+       cadastroValor.setText("");
+       
+       cadastroNome.requestFocus();
+      
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
 
